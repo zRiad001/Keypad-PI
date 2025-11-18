@@ -1,0 +1,17 @@
+import serial
+import time
+
+PORT = "/dev/ttyACM0"   # Arduino-nun portu
+BAUDRATE = 9600
+
+ser = serial.Serial(PORT, BAUDRATE, timeout=1)
+
+# Arduino port açılanda reset olur, bir az gözləyək
+time.sleep(2)
+
+print("Listening for keypad presses...")
+
+while True:
+    line = ser.readline().decode("utf-8", errors="ignore").strip()
+    if line:
+        print("Button pressed:", line)
